@@ -5,7 +5,7 @@ public class PercentDiscountPolicy extends DiscountPolicy {
 
     public PercentDiscountPolicy(double percent, DiscountCondition... conditions) {
         super(conditions);
-        this.percent = percent;
+        this.percent = percent / 100;
     }
 
     @Override
