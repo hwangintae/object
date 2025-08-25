@@ -8,3 +8,83 @@
 
 '도메인 설계'를 한다 라기 보단 '000 애니메이션'을 만든다고 생각을 하면서 설계를 해봐야겠다.
 
+## [chapter02 객체지향 프로그래밍](https://github.com/hwangintae/object/pull/2)
+개발을 하면서 공통 코드를 추출하기 위해 추상 클래스를 사용하였다.
+그리고 구현체에 의존하지 않기 위해 인터페이스를 사용하였다.
+
+그러나 요구사항이 추가, 수정될 때 오히려 추상 클래스로 인해 개발이 어려워졌다.
+인터페이스를 사용했을 때 중복되는 코드를 어떻게 해결해야할지 몰랐다.
+
+요구사항이 복잡해질 때마다 항상 발목을 잡는 부분이였다.
+
+책을 보면 해법은 간단했다. 인터페이스를 만들어 직접 상속하게 만드는 방법이였다.
+
+```mermaid
+classDiagram
+    class DiscountPolicy {
+        +calculateDiscountAmount()
+        #getDiscountAmount()
+    }
+
+    class NoneDiscountPolicy {
+        #getDiscountAmount()
+    }
+
+    class AmountDiscountPolicy {
+        #getDiscountAmount()
+    }
+
+    class PercentDiscountPolicy {
+        #getDiscountAmount()
+    }
+
+
+    NoneDiscountPolicy --|> DiscountPolicy
+    AmountDiscountPolicy --|> DiscountPolicy
+    PercentDiscountPolicy --|> DiscountPolicy
+```
+```mermaid
+classDiagram
+    class DiscountPolicy {
+        <<interface>>
+        +calculateDiscountAmount()
+    }
+
+    class DefaultDiscountPolicy {
+        +calculateDiscountAmount()
+        #getDiscountAmount()
+    }
+
+    class NoneDiscountPolicy {
+        #getDiscountAmount()
+    }
+
+    class AmountDiscountPolicy {
+        #getDiscountAmount()
+    }
+
+    class PercentDiscountPolicy {
+        #getDiscountAmount()
+    }
+    NoneDiscountPolicy ..|> DiscountPolicy
+    DefaultDiscountPolicy ..|> DiscountPolicy
+    AmountDiscountPolicy --|> DefaultDiscountPolicy
+    PercentDiscountPolicy --|> DefaultDiscountPolicy
+```
+```java
+public interface DiscountPolicy {
+    Money calculateDiscountAmount(Screening screening);
+}
+
+public abstract class DefaultDiscountPolicy implements DiscountPolicy { ... }
+
+public class NoneDiscountPolicy implements DiscountPolicy { ... }
+
+public class AmountDiscountPolicy extends DefaultDiscountPolicy { ... }
+
+public class PercentDiscountPolicy extends DefaultDiscountPolicy { ... }
+```
+
+나의 문제점은 추상 클래스와 인터페이스의 장점을 서로 연결하지 못한 문제가 있었다.
+
+적절한 해법을 찾았다. 앞으로 좋은 객체지향 설계를 할 수 있길 기대해본다.
