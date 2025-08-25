@@ -383,9 +383,9 @@ public Movie(String title, Duration runningTime, Money fee, DiscountPolicy disco
 
 반면 DiscountPolicy의 생성자는 여러 개의 DiscountCondition 인스턴스를 허용한다.
 
-```mermaid
+```java
 public DiscountPolicy(DiscountCondition... conditions) {
-this.conditions = Arrays.asList(conditions);
+    this.conditions = Arrays.asList(conditions);
 }
 ```
 
