@@ -89,4 +89,23 @@ class DiscountPolicyTest {
         // then
         assertThat(result.getFee()).isEqualTo(Money.wons(10_000));
     }
+
+    @Test
+    @DisplayName("할인 정책 바꾸기")
+    void changeDiscountPolicy() {
+        Movie avatar = new Movie("아바타",
+                Duration.ofMinutes(120),
+                Money.wons(10_000),
+                new AmountDiscountPolicy(Money.wons(800), new SequenceCondition(1))
+        );
+
+        avatar.changeDiscountPolicy(new PercentDiscountPolicy(10, new SequenceCondition(1)));
+
+        Screening screening = new Screening(avatar, 1,
+                LocalDateTime.of(2025, 8, 19, 11, 0));
+
+        Reservation reserve = screening.reserve(new Customer(), 1);
+
+        assertThat(reserve.getFee()).isEqualTo(Money.wons(9_000));
+    }
 }
