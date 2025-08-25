@@ -45,9 +45,48 @@ class DiscountPolicyTest {
         Reservation reserve3 = screening3.reserve(new Customer(), 1);
 
         // then
-        assertThat(reserve1.getFee()).isEqualTo(won10_000.minus(won800).times(1));
-        assertThat(reserve2.getFee()).isEqualTo(won10_000.times(1));
-        assertThat(reserve3.getFee()).isEqualTo(won10_000.minus(won800).times(1));
+        assertThat(reserve1.getFee()).isEqualTo(won10_000.minus(won800));
+        assertThat(reserve2.getFee()).isEqualTo(won10_000);
+        assertThat(reserve3.getFee()).isEqualTo(won10_000.minus(won800));
+    }
 
+    @Test
+    @DisplayName("퍼센트 할인 정책")
+    void percentDiscountPolicy() {
+        // given
+        Movie movie = new Movie("아바타",
+                Duration.ofMinutes(120),
+                Money.wons(10_000),
+                new PercentDiscountPolicy(10, new SequenceCondition(1))
+        );
+
+        Screening screening = new Screening(movie, 1,
+                LocalDateTime.of(2025, 8, 19, 11, 0));
+
+        // when
+        Reservation result = screening.reserve(new Customer(), 1);
+
+        // then
+        assertThat(result.getFee()).isEqualTo(Money.wons(9_000));
+    }
+
+    @Test
+    @DisplayName("할인 정책이 없는 경우")
+    void noneDiscountPolicy() {
+        // given
+        Movie movie = new Movie("아바타",
+                Duration.ofMinutes(120),
+                Money.wons(10_000),
+                new NoneDiscountPolicy()
+        );
+
+        Screening screening = new Screening(movie, 1,
+                LocalDateTime.of(2025, 8, 19, 11, 0));
+
+        // when
+        Reservation result = screening.reserve(new Customer(), 1);
+
+        // then
+        assertThat(result.getFee()).isEqualTo(Money.wons(10_000));
     }
 }
