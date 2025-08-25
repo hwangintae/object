@@ -7,6 +7,10 @@ public record Money(
 ) {
     public static final Money ZERO = Money.wons(0);
 
+    public Money {
+        amount = BigDecimal.valueOf(amount.intValue());
+    }
+
     public static Money wons(long amount) {
         return new Money(BigDecimal.valueOf(amount));
     }
