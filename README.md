@@ -88,3 +88,7 @@ public class PercentDiscountPolicy extends DefaultDiscountPolicy { ... }
 나의 문제점은 추상 클래스와 인터페이스의 장점을 서로 연결하지 못한 문제가 있었다.
 
 적절한 해법을 찾았다. 앞으로 좋은 객체지향 설계를 할 수 있길 기대해본다.
+
+## [chapter03 역할, 책임, 협력](https://github.com/hwangintae/object/pull/3)
+행동이 상태를 결정한다는 부분이 인상적이었다. 보통은 객체의 속성(상태)을 먼저 정의하고 메서드를 생성 했는데,
+협력과 책임을 먼저 생각하면 훨씬 유연한 설계가 가능하다는 점을 알게되었다.
