@@ -1,4 +1,4 @@
-package intae.chapter02;
+package intae.movie;
 
 public interface DiscountPolicy {
     Money calculateDiscountAmount(Screening screening);

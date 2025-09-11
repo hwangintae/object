@@ -1,4 +1,4 @@
-package intae.chapter01;
+package intae.movie;
 
 public class Ticket {
     private Long fee;

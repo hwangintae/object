@@ -1,4 +1,4 @@
-package intae.chapter01;
+package intae.movie;
 
 import java.time.LocalDateTime;
 

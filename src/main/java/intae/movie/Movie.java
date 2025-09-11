@@ -1,4 +1,4 @@
-package intae.chapter02;
+package intae.movie;
 
 import java.time.Duration;
 

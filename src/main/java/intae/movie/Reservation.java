@@ -1,4 +1,4 @@
-package intae.chapter02;
+package intae.movie;
 
 public class Reservation {
     private Customer customer;

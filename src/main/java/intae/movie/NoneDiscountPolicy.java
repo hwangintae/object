@@ -1,4 +1,4 @@
-package intae.chapter02;
+package intae.movie;
 
 public class NoneDiscountPolicy implements DiscountPolicy {
     @Override
